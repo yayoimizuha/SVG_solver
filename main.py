@@ -65,7 +65,7 @@ for i in range(len(paths)):
         path = paths[i]["d"]
 
     paths_count = re.subn(r'[a-z]', r'', string=path, flags=re.IGNORECASE)[-1] - 1
-    print(paths_count)
+    # print(paths_count)
     tmp = path
     paths_list = []
     tmp_string = ""
