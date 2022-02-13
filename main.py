@@ -1,6 +1,6 @@
 import pprint
 import re
-
+from PIL import ImageColor
 from bs4 import BeautifulSoup
 
 
@@ -49,31 +49,52 @@ def process_shorten(process_list):
     return return_list
 
 
-with open('svg.svg', mode='r') as f:
-    svg = f.read()
+def conv_color(color_obj, already_color):
+    if color_obj.has_attr('fill'):
+        color = list(ImageColor.getcolor(color_obj["fill"], mode='RGB'))
+    else:
+        color = already_color
+    return color
 
-paths = BeautifulSoup(svg, 'xml').find_all('path')
 
-for i in range(len(paths)):
-    color = 0x000000
-    if paths[i].has_attr('fill') is True:
-        color = paths[i]["fill"][1:]
-    print(hex(int(str(color), 16)))
+with open('SVG_logo.svg', mode='r') as f:
+    svg_obj = f.read()
 
-    path = ""
-    if paths[i].has_attr('d') is True:
-        path = paths[i]["d"]
+svg = BeautifulSoup(svg_obj, 'xml').find('svg')
 
-    paths_count = re.subn(r'[a-z]', r'', string=path, flags=re.IGNORECASE)[-1] - 1
-    # print(paths_count)
-    tmp = path
-    paths_list = []
-    tmp_string = ""
-    for j in range(paths_count):
-        tmp = re.sub(r'([a-z])', r'#\1', tmp.split('#')[-1], flags=re.IGNORECASE, count=2)
-        paths_list.append([tmp.split('#')[1][0], tmp.split('#')[1][1:]])
 
-    paths_list = process_shorten(paths_list)
+def recursive_tags(tag_source):
+    for parts in tag_source.findChildren(recursive=False):
+        print("\t" * len(parts.find_parents()) + parts.name)
+        # print(str(parts).replace(str(parts.extract()), ''))
+        if parts.name == 'a' or parts.name == 'g':
+            recursive_tags(parts)
+    # print()
+    # print("\n\n\n\n\n\n\n")
 
-    pprint.pprint(paths_list, indent=4)
-    print("\n")
+
+recursive_tags(svg)
+
+# pprint.pprint(svg.findChildren())
+# for i in range(len(paths)):
+#     color = conv_color(color_obj=paths[i], already_color=color)
+#     pprint.pprint(paths[i].find_parents('g').has_attr('fill'))
+#     for parent in paths[i].parents:
+#         pass
+#         # print(parent)
+#     path = ""
+#     if paths[i].has_attr('d') is True:
+#         path = paths[i]["d"]
+#
+#     paths_count = re.subn(r'[a-z]', r'', string=path, flags=re.IGNORECASE)[-1] - 1
+#     print(paths_count)
+#     tmp = path
+#     paths_list = []
+#     tmp_string = ""
+#     for j in range(paths_count):
+#         tmp = re.sub(r'([a-z])', r'#\1', tmp.split('#')[-1], flags=re.IGNORECASE, count=2)
+#         paths_list.append([tmp.split('#')[1][0], tmp.split('#')[1][1:]])
+#
+#     pprint.pprint(paths_list, indent=4)
+#     print("\n")
+#

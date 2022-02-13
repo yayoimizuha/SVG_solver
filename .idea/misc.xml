@@ -5,16 +5,16 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
+          <option name="caretOffset" value="1484" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/svg.svg" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="2748" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/main.py" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="36863" />
-          <option name="fileUrl" value="file:///usr/lib/python3.9/sre_parse.py" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="2191" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/svg.svg" />
+          <option name="caretOffset" value="443" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/SVG_logo.svg" />
         </OpenedFileInfo>
       </list>
     </option>
